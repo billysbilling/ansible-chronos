@@ -70,18 +70,20 @@ chronos_bin_load_options_override: |
     logged chronos "${cmd[@]}" "$@"
   }
 
-
-mesos_zk_chroot: "mesos"
-chronos_zk_auth: ""
-chronos_zk_dns: "{{ inventory_hostname }}"
-chronos_zk_port: 2181
-chronos_zk_chroot: chronos
-chronos_zk_connect: "zk://{{ chronos_zk_dns }}:{{ chronos_zk_port }}/{{chronos_zk_chroot}}"
-chronos_zk_mesos_master: "zk://{{ chronos_zk_dns }}:{{ chronos_zk_port }}/{{ mesos_zk_chroot }}"
-
 chronos_hostname: "{{ inventory_hostname }}"
 chronos_bind_address: "{{ ansible_default_ipv4.address }}"
 chronos_port: 4400
+
+chronos_zk_auth: ""
+chronos_zk_dns: "{{ inventory_hostname }}"
+chronos_zk_port: 2181
+zookeeper_hostnames: "{{ chronos_zk_dns }}:{{ chronos_zk_port }}"
+
+chronos_zk_chroot: chronos
+chronos_zk_connect: "zk://{{ zookeeper_hostnames }}/{{chronos_zk_chroot}}"
+
+mesos_zk_chroot: "mesos"
+chronos_zk_mesos_master: "zk://{{ zookeeper_hostnames }}/{{ mesos_zk_chroot }}"
 
 # Dictionary of configuration options for Chronos
 chronos_conf_options:
