@@ -1,6 +1,7 @@
 ---
 chronos_version: 2.4.0
 chronos_package_version: 0.1.20150828104228
+chronos_package_full_version: "{{chronos_version}}-{{chronos_package_version}}.{{ansible_distribution|lower}}{{ansible_distribution_version.split('.')|join('')}}"
 
 # RedHat
 chronos_yum_package_name: "chronos-{{ chronos_version }}"
